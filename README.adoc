@@ -13,16 +13,18 @@ programming language.
 
  * Portability. Runs on the following platforms:
 
-   - ARM: Linux (Debian).
    - Alpha: Linux (Debian).
-   - AMD64: Darwin (Mac OS X), FreeBSD, Linux (Debian, Fedora, Ubuntu, ...),
+   - AMD64 (x86-64): Darwin (Mac OS X), FreeBSD, Linux (Debian, Fedora, Ubuntu, ...),
      OpenBSD, Solaris (10 and above).
-
+   - ARM: Linux (Debian, Fedora).
+   - ARM64 (AArch64): Linux (Debian, Fedora).
    - HPPA: HPUX (11.11 and above), Linux (Debian).
    - IA64: HPUX (11.11 and above), Linux (Debian).
+   - MIPS: Linux (Debian).
    - PowerPC: AIX (5.2 and above), Darwin (Mac OS X), Linux (Debian, Fedora).
-   - PowerPC64: AIX (5.2 and above).
-   - S390: Linux (Debian).
+   - PowerPC64: AIX (5.2 and above), Linux (Debian, Fedora).
+   - RISC-V: Linux (Fedora).
+   - S390: Linux (Debian, Fedora).
    - Sparc: Linux (Debian), Solaris (8 and above).
    - X86: Cygwin/Windows, Darwin (Mac OS X), FreeBSD, Linux (Debian, Fedora,
      Ubuntu, ...), MinGW/Windows, NetBSD, OpenBSD, Solaris (10 and above).
