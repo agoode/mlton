@@ -96,12 +96,14 @@ structure MLtonPlatform: MLTON_PLATFORM =
                Archive
              | Executable
              | LibArchive
+             | LibExecutable
              | Library
 
             val all =
                (Archive, "Archive")::
                (Executable, "Executable")::
                (LibArchive, "LibArchive")::
+               (LibExecutable, "LibExecutable")::
                (Library, "Library")::
                nil
 
@@ -113,6 +115,7 @@ structure MLtonPlatform: MLTON_PLATFORM =
                   "archive" => Archive
                 | "executable" => Executable
                 | "libarchive" => LibArchive
+                | "libexecutable" => LibExecutable
                 | "library" => Library
                 | _ => raise Fail "strange MLton_Platform_Format_host"
          end

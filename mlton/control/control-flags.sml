@@ -943,15 +943,17 @@ structure Format =
          Archive
        | Executable
        | LibArchive
+       | LibExecutable
        | Library
 
       (* Default option first for usage message. *)
-      val all = [Executable, Archive, LibArchive, Library]
+      val all = [Executable, Archive, LibArchive, LibExecutable, Library]
 
       val toString: t -> string =
         fn Archive => "archive"
          | Executable => "executable"
          | LibArchive => "libarchive"
+         | LibExecutable => "libexecutable"
          | Library => "library"
    end
 
@@ -1763,6 +1765,7 @@ val buildConsts =
                                          Archive => "archive"
                                        | Executable => "executable"
                                        | LibArchive => "libarchive"
+                                       | LibExecutable => "libexecutable"
                                        | Library => "library")),
            ("MLton_Profile_isOn", bool (case !profile of
                                            ProfileNone => false

@@ -222,6 +222,7 @@ signature CONTROL_FLAGS =
                Archive
              | Executable
              | LibArchive
+             | LibExecutable
              | Library
             val all: t list
             val toString: t -> string

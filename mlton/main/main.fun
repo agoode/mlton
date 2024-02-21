@@ -1051,10 +1051,11 @@ fun commandLine (_: string, args: string list): unit =
          case (targetOS, targetArch, !format) of
             (MinGW, _, _) => NONE
           | (Cygwin, _, _) => NONE
-          | (_, _, Executable) => NONE
           | (_, _, Archive) => NONE
-          | (_, _, Library) => SOME Control.PositionIndependentStyle.PIC
+          | (_, _, Executable) => NONE
           | (_, _, LibArchive) => SOME Control.PositionIndependentStyle.PIC
+          | (_, _, LibExecutable) => NONE
+          | (_, _, Library) => SOME Control.PositionIndependentStyle.PIC
       val () =
          positionIndependentStyle
          := (case (!positionIndependentStyle, pisFormat) of
@@ -1379,6 +1380,7 @@ fun commandLine (_: string, args: string list): unit =
                                  (Archive, _) => maybeOut ".a"
                                | (Executable, _) => maybeOut ""
                                | (LibArchive, _) => maybeOut ".a"
+                               | (LibExecutable, _) => maybeOut ""
                                | (Library, Darwin) => maybeOut ".dylib"
                                | (Library, Cygwin) => !libname ^ ".dll"
                                | (Library, MinGW)  => !libname ^ ".dll"
@@ -1413,6 +1415,10 @@ fun commandLine (_: string, args: string list): unit =
                                       [tl cc,
                                        case !format of
                                           Executable =>
+                                             Control.PositionIndependentStyle.linkOpts
+                                             positionIndependentStyle
+                                        | LibExecutable =>
+                                             "-Wl,--export-dynamic" ::
                                              Control.PositionIndependentStyle.linkOpts
                                              positionIndependentStyle
                                         | Library => libOpts

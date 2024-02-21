@@ -758,6 +758,7 @@ fun outputDeclarations
                                     Control.Archive => "MLtonLibrary"
                                   | Control.Executable => "MLtonMain"
                                   | Control.LibArchive => "MLtonLibrary"
+                                  | Control.LibExecutable => "MLtonLibrary"
                                   | Control.Library => "MLtonLibrary",
                                  [C.int align,
                                   WordX.toC magic,

@@ -81,12 +81,20 @@ The symbol `libname_open` is a function which must be called before any other sy
 The `libname` is controlled by the `-libname` compile option and defaults to the name of the output, with any prefixing lib stripped (eg: `foo` -> `foo`, `libfoo` -> `foo`).
 The symbol `libname_close` is a function which should be called to clean up memory once done.
 
+For WebAssembly (Wasm), there is little distinction between libraries and executables.
+A `.wasm` binary is loaded by a browser or other runtime engine, and one or more exported functions are called as needed.
+Executables export a standard entry point, while libraries export arbitrary functions.
+A standard set of imports are defined by WASI (the WebAssembly System Interface), though custom imports can be declared.
+From MLton's perspective, building a Wasm library is just like building a regular executable but with library-style exports.
+Such a library can be built with `-format libexecutable`.
+
 Summary of `-format` options:
 
 * `executable`: create an executable (a DSO)
 * `library`: create a dynamic shared library (a DSO)
 * `archive`: create an archive of symbols (not a DSO) that can be linked into an executable
 * `libarchive`: create an archive of symbols (not a DSO) that can be linked into a library
+* `libexecutable`: create a library with exported symbols, but in an executable format (a DSO)
 
 Related options:
 
@@ -141,3 +149,5 @@ The linker will pick one or the other, usually preferring the dynamic library.
 While a quirk of the operating system allows external import to work for both archives and libraries,
 portable projects should not depend on this behaviour.
 On other systems it can matter how the library is linked (static or dynamic).
+
+See above for WebAssembly considerations.

@@ -74,6 +74,7 @@ structure Exit =
                   Archive => suffixArchiveOrLibrary
                 | Executable => suffixExecutable
                 | LibArchive => suffixArchiveOrLibrary
+                | LibExecutable => suffixArchiveOrLibrary
                 | Library => suffixArchiveOrLibrary
             end
       in

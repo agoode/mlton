@@ -160,10 +160,11 @@ fun exportHeader f =
        (* How do programs link against this library by default *)
        val defaultLinkage =
           case !Control.format of
-             Control.Archive    => "STATIC_LINK"
-           | Control.Executable => "PART_OF"
-           | Control.LibArchive => "NO_DEFAULT_LINK"
-           | Control.Library    => "DYNAMIC_LINK"
+             Control.Archive       => "STATIC_LINK"
+           | Control.Executable    => "PART_OF"
+           | Control.LibArchive    => "NO_DEFAULT_LINK"
+           | Control.LibExecutable => "NO_DEFAULT_LINK"
+           | Control.Library       => "DYNAMIC_LINK"
        val _ =
           print ("#if !defined(PART_OF_"      ^ libcap ^ ") && \\\n\
                  \    !defined(STATIC_LINK_"  ^ libcap ^ ") && \\\n\
