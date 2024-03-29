@@ -22,6 +22,8 @@ EXE :=
 
 WASMTIME :=
 
+USE_PREGEN :=
+
 MDVARIANTS := OPT DBG
 PIVARIANTS := DPI NPI PIC PIE
 
@@ -250,12 +252,21 @@ c-types.h: gen/c-types.h
 ml-types.h: gen/ml-types.h
 	$(CP) $< $@
 
+ifeq ($(USE_PREGEN),true)
+gen/ml-types.h: pregen/$(TARGET)/ml-types.h
+	$(CP) $< $@
+gen/c-types.h: pregen/$(TARGET)/c-types.h
+	$(CP) $< $@
+gen/c-types.sml: pregen/$(TARGET)/c-types.sml
+	$(CP) $< $@
+else
 gen/ml-types.h: gen/gen-types$(EXE)
 	$(WASMTIME) ./gen/gen-types$(EXE) ml-types.h > gen/ml-types.h
 gen/c-types.h: gen/gen-types$(EXE)
 	$(WASMTIME) ./gen/gen-types$(EXE) c-types.h > gen/c-types.h
 gen/c-types.sml: gen/gen-types$(EXE)
 	$(WASMTIME) ./gen/gen-types$(EXE) c-types.sml > gen/c-types.sml
+endif
 
 ifneq ($(MAKECMDGOALS),clean)
 -include gen/gen-types.d
@@ -318,8 +329,13 @@ gdtoa/README: gdtoa.tgz gdtoa.may_alias-unions.patch gdtoa.rename-public-fns.pat
 	$(PATCH) -s -d gdtoa -p1 <gdtoa.include-via-gdtoa.patch
 	@touch $@
 
+ifeq ($(USE_PREGEN),true)
+gdtoa/arith.h: pregen/$(TARGET)/arith.h
+	$(CP) $< $@
+else
 gdtoa/arith.h: gdtoa/arithchk$(EXE)
 	$(WASMTIME) ./gdtoa/arithchk$(EXE) > gdtoa/arith.h
+endif
 
 gdtoa/arithchk.c: gdtoa/README
 	@touch $@
@@ -330,8 +346,13 @@ ifneq ($(MAKECMDGOALS),clean)
 -include gdtoa/arithchk.d
 endif
 
+ifeq ($(USE_PREGEN),true)
+gdtoa/gd_qnan.h: pregen/$(TARGET)/gd_qnan.h
+	$(CP) $< $@
+else
 gdtoa/gd_qnan.h: gdtoa/qnan$(EXE)
 	$(WASMTIME) ./gdtoa/qnan$(EXE) > gdtoa/gd_qnan.h
+endif
 
 gdtoa/qnan.c: gdtoa/README
 	@touch $@
@@ -359,8 +380,13 @@ $(eval $(call A_TEMPLATE,mlton,MLTON))
 
 ### gen/constants ###
 
+ifeq ($(USE_PREGEN),true)
+gen/constants: pregen/$(TARGET)/constants
+	$(CP) $< $@
+else
 gen/constants: gen/gen-constants$(EXE)
 	$(WASMTIME) ./gen/gen-constants > gen/constants
+endif
 
 ifneq ($(MAKECMDGOALS),clean)
 -include gen/gen-constants.d
