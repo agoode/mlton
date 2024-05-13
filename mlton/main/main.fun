@@ -1236,6 +1236,7 @@ fun commandLine (_: string, args: string list): unit =
                       | HPUX => true
                       | Hurd => false
                       | Linux => true
+                      | MacOS => true
                       | MinGW => true
                       | NetBSD => true
                       | OpenBSD => true

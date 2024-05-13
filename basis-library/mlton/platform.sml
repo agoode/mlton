@@ -127,6 +127,7 @@ structure MLtonPlatform: MLTON_PLATFORM =
              | Hurd
              | HPUX
              | Linux
+             | MacOS
              | MinGW
              | NetBSD
              | OpenBSD
@@ -141,6 +142,7 @@ structure MLtonPlatform: MLTON_PLATFORM =
                (HPUX, "HPUX")::
                (Hurd, "Hurd")::
                (Linux, "Linux")::
+               (MacOS, "MacOS")::
                (MinGW, "MinGW")::
                (NetBSD, "NetBSD")::
                (OpenBSD, "OpenBSD")::
@@ -160,6 +162,7 @@ structure MLtonPlatform: MLTON_PLATFORM =
                 | "hpux" => HPUX
                 | "hurd" => Hurd
                 | "linux" => Linux
+                | "macos" => MacOS
                 | "mingw" => MinGW
                 | "netbsd" => NetBSD
                 | "openbsd" => OpenBSD
